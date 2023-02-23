@@ -13,6 +13,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        _rigidbody.transform.position = new Vector3(_camera.ScreenToWorldPoint(Input.mousePosition).x, 0, 0);
+        _rigidbody.transform.position = new Vector3(_camera.ScreenToWorldPoint(Input.mousePosition).x, 0, -7);
     }
 }
