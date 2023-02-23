@@ -6,18 +6,25 @@ public class BallMovement : MonoBehaviour
 {
     [SerializeField] private int _speed;
     private Rigidbody _ball;
+    //private SphereCollider _ballCollider;
     private Vector3 _lastPos;
-
+    
     public void Start()
     {
         _ball = GetComponent<Rigidbody>();
-        _lastPos = new Vector3(0, 0, -100);
-        _ball.transform.position = new Vector3(0, 0, 0);
+        //_ballCollider = GetComponent<SphereCollider>();
+        SetVelocity(new Vector3(0,0,-_speed));
     }
 
-    public void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        _ball.transform.position = _ball.transform.position + _lastPos * _speed * Time.deltaTime;
-        _lastPos= new Vector3(_ball.transform.position.x, 0, _ball.transform.position.z);
+        var hitNormal = collision.contacts[0].normal;
+        Vector3.Reflect(_ball.velocity, hitNormal);
     }
+
+    public void SetVelocity(Vector3 velocity)
+    {
+        _ball.velocity = velocity;
+    }
+    
 }
