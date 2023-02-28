@@ -19,7 +19,7 @@ public class BallMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         var hitNormal = collision.contacts[0].normal;
-        Vector3.Reflect(_ball.velocity, hitNormal);
+        _ball.velocity = Vector3.Reflect(_ball.velocity, hitNormal);
     }
 
     public void SetVelocity(Vector3 velocity)
