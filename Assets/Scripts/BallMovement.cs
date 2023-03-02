@@ -13,18 +13,25 @@ public class BallMovement : MonoBehaviour
     {
         _ball = GetComponent<Rigidbody>();
         //_ballCollider = GetComponent<SphereCollider>();
-        SetVelocity(new Vector3(0,0,-_speed));
+        SetVelocity(new Vector3(0,0,-1));
+        //_lastPos = _ball.velocity;
+    }
+
+    public void Update()
+    {
+        //_ball.velocity = _lastPos;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         var hitNormal = collision.contacts[0].normal;
-        _ball.velocity = Vector3.Reflect(_ball.velocity, hitNormal);
+        SetVelocity(Vector3.Reflect(_ball.velocity, hitNormal).normalized);
+        //_lastPos = _ball.velocity;
     }
 
-    public void SetVelocity(Vector3 velocity)
+    public void SetVelocity(Vector3 dir)
     {
-        _ball.velocity = velocity;
+        _ball.velocity = dir * _speed;
     }
     
 }
